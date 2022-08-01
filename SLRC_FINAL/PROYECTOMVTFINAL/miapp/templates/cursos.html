@@ -1,9 +1,29 @@
-{% extends "index.html" %}
+{% extends 'index.html' %}
+ 
+{% block title %}
+    {{titulo}}
+{% endblock %}
+ 
+{% block content %}
+    <h1 class="title">{{titulo}} </h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <ul>
+        {% for curso in cursos %}
+            <li>
+                <h4>{{curso.idcourse}} - {{curso.name}}</h4> 
+                    <p> Código: {{curso.code}}</p>
+                    <p> Horario: {{curso.hour}}</p>
+                    <p> Créditos: {{curso.credits}}</p>
+                    <p> Estado: {{curso.state}}</p>
+                    <a href="{% url 'eliminarcurso' id=curso.idcourse %}">  Eliminar</a>
 
-{% block content %} 
-<h1>{{mensaje}}</h1>
-
-
-
-
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

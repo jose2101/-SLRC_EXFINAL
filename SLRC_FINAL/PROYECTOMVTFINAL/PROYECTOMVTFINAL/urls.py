@@ -20,8 +20,10 @@ from django.urls import path
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('index/',views.Index),
-    path('cursos/',views.Cursos),
-    path('crearCursos/',views.Crearcursos),
+    path('cursos/',views.Cursos, name='listarcurso'),
+    path('crearCursos/',views.Crearcursos, name='Crearcurso'),
+    path('save_cursos/',views.save_cursos, name='save_cursos'),
+    path('eliminarcurso/<int:id>',views.eliminar_curso, name='eliminarcurso'),
     path('carreras/',views.Carreras),
     path('crearCarreras',views.Crearcarreras),
 ]
