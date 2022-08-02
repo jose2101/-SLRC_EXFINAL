@@ -1,9 +1,29 @@
-{% extends "index.html" %}
+{% extends 'index.html' %}
+ 
+{% block title %}
+    {{titulo}}
+{% endblock %}
+ 
+{% block content %}
+    <h1 class="title">{{titulo}} </h1>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="message">
+                {{message}}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <ul>
+        {% for carrera in carreras %}
+            <li>
+                <h4>{{carrera.idcareer}} - {{carrera.name}}</h4> 
+                    <p> Código: {{carrera.code}}</p>
+                    <p> Nombre abreviado: {{carrera.shortname}}</p>
+                    <p> Imagen: {{carrera.iamge}}</p>
+                    <p> Estado: {{carrera.state}}</p>
+                    <a href="{% url 'eliminarcurso' id=carrera.idcourse %}">  Eliminar</a>
 
-{% block content %} 
-<h1>{{mensaje}}</h1>
-
-
-
-
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

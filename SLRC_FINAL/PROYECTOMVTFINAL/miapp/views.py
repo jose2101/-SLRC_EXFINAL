@@ -1,5 +1,6 @@
 from unicodedata import name
 from django.shortcuts import render, HttpResponse, redirect
+from SLRC_FINAL.PROYECTOMVTFINAL.miapp.models import Career
 from miapp.models import Course
 from django.contrib import messages
 
@@ -8,7 +9,7 @@ from django.contrib import messages
 def Index(request):
 
     return render(request,"index.html",{}) 
-    
+  
 def Cursos(request):
     cursos = Course.objects.all()
     return render(request,"cursos.html",{
@@ -43,9 +44,35 @@ def eliminar_curso(request,id):
     return redirect('listarcurso')
 
 def Carreras(request):
-    mensaje="Listado de Carreras"
-    return render(request,"carreras.html",{"mensaje":mensaje}) 
-
+    carreras = Career.objects.all()
+    return render(request,"carreras.html",{
+        'carreras':carreras,
+        'titulo':'Listado de Carreras'
+     }) 
+def save_carreras(request):
+    if request.method == 'POST':
+                codigo = request.POST['codigo']
+                nombre = request.POST['nombre']
+                horario = request.POST['horario']
+                creditos = request.POST['creditos']
+                estado = request.POST['estado']
+                curso = Course(
+                    code = codigo,
+                    name = nombre,
+                    hour = horario,
+                    credits = creditos,
+                    state = estado
+                )
+                curso.save()
+                messages.success(request, f'Se agregó correctamente el curso {curso.name}')
+    return redirect('listarcurso')
+    
+    
 def Crearcarreras(request):
     mensaje="Agregar Carreras"
-    return render(request,"crearCarreras.html",{"mensaje":mensaje}) 
+    return render(request,"crearCarreras.html",{"mensaje":mensaje})
+
+def eliminar_carrera(request,id):
+    carrera = Career.objects.get(pk=id)
+    carrera.delete()
+    return redirect('listarcarrera')

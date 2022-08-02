@@ -2,7 +2,24 @@
 
 {% block content %} 
 <h1>{{mensaje}}</h1>
+<form action="{% url 'save_carrera' %}" method="POST">
+    {% csrf_token %}
+    <label for="codigo">Código</label>
+    <input type="text" name="codigo" />
 
+    <label for="nombre">Nombre </label>
+    <input type="text" name="nombre" />
+
+    <label for="horario">Horario </label>
+    <textarea name="horario" ></textarea>
+
+    <label for="creditos">Creditos</label>
+    <input type="text" name="creditos" />
+
+    <label for="estado">Estado</label>
+    <input type="text" name="estado" />
+
+    <input type="submit" value="Agregar" />
 
 
 
